@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Listado de Médicos</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-4">
+        <h2>Listado de Médicos</h2>
+        <a th:href="@{/Vistas/RegistrarMedico}" class="btn btn-primary mb-3">Agregar Médico</a>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Email</th>
+                    <th>DNI</th>
+                    <th>Estado Civil</th>
+                    <th>Fecha_Nacimiento</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="medico : ${listMedico}">
+                    <td th:text="${medico.idMedico}"></td>
+                    <td th:text="${medico.nombre}"></td>
+                    <td th:text="${medico.apellido}"></td>
+                    <td th:text="${medico.email}"></td>
+                    <td th:text="${medico.dni}"></td>
+                    <td th:text="${medico.estadoCivil}"></td>
+                    <td th:text="${#dates.format(medico.fechaNacimiento, 'yyyy-MM-dd')}"></td>
+                    <td>
+                        <a th:href="@{/Vistas/EditarMedico/{id}(id=${medico.idMedico})}" class="btn btn-warning btn-sm">Editar</a>
+                        <a th:href="@{/Vistas/EliminarMedico/{id}(id=${medico.idMedico})}" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de eliminar este médico?')">Eliminar</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
