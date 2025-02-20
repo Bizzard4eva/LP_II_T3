@@ -1,54 +1,44 @@
 <!DOCTYPE html>
-<html xmlns:th="thymeleaf.org">
-
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-	<title>Listado de Medicos</title>
-	<style>
-		html {
-
-			background-color: #b8d1e7;
-		}
-	</style>
-	<link rel="stylesheet" href="cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <title>Listado de Médicos</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 </head>
-
 <body>
-	<h1 style="text-align: center;">Listado de Medicos</h1>
-	<h2 style="text-align: center;">
-		<a th:href="@{RegistrarMedico}" th:text="'Registrar Medico'" title="crear un nuevo registro"
-			class="btn btn-primary"></a>
-	</h2>
-
-	<table align="center" border="2">
-		<tr>
-			<th>ID</th>
-			<th>Nombre</th>
-			<th>Apellido</th>
-			<th>Email</th>
-			<th>DNI</th>
-			<th>Estado Civil</th>
-			<th>Fecha de Nacimiento</th>
-		</tr>
-		<th:block th:each="medico:${listMedico}">
-			<tr>
-				<td th:text="${medico.idMedico}"></td>
-				<td th:text="${medico.nombre}"></td>
-				<td th:text="${medico.apellido}"></td>
-				<td th:text="${medico.email}"></td>
-				<td th:text="${medico.dni}"></td>
-				<td th:text="${medico.estadoCivil}"></td>
-				<td th:text="${#dates.format(medico.fechaNacimiento,'dd-MM-yyy')}"></td>
-				<td>
-					<a th:href="@{/Vistas/editarmedico/{id}(id=${medico.idMedico})}" th:text="Editar"
-						title="Editar Registro" class="btn btn-primary"></a>
-
-				</td>
-				<td> <a th:href="@{/Vistas/eliminarmedico/{id}(id=${medico.idMedico})}" th:text="Eliminar"
-						title="Eliminar Registro" class="btn btn-warning"></a>
-				</td>
-			</tr>
-		</th:block>
-	</table>
+    <div class="container mt-4">
+        <h2>Listado de Médicos</h2>
+        <a th:href="@{/Vistas/RegistrarMedico}" class="btn btn-primary mb-3">Agregar Médico</a>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Email</th>
+                    <th>DNI</th>
+                    <th>Estado Civil</th>
+                    <th>Fecha_Nacimiento</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="medico : ${listMedico}">
+                    <td th:text="${medico.idMedico}"></td>
+                    <td th:text="${medico.nombre}"></td>
+                    <td th:text="${medico.apellido}"></td>
+                    <td th:text="${medico.email}"></td>
+                    <td th:text="${medico.dni}"></td>
+                    <td th:text="${medico.estadoCivil}"></td>
+                    <td th:text="${#dates.format(medico.fechaNacimiento, 'yyyy-MM-dd')}"></td>
+                    <td>
+						<a th:href="@{/Vistas/EditarMedico/{id}(id=${medico.idMedico})}" class="btn btn-warning btn-sm">Editar</a>
+                        <a th:href="@{/Vistas/EliminarMedico/{id}(id=${medico.idMedico})}" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de eliminar este médico?')">Eliminar</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>

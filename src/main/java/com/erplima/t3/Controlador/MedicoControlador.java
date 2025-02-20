@@ -22,35 +22,35 @@ public class MedicoControlador {
 	private IMedicoServicio iMedicoServicio;
 	
 	@GetMapping("ListaMedicos")
-	public String listMedico(Model model) {
+	public String ListaMedicos(Model model) {
 		List<Medico> medicos = iMedicoServicio.listMedico();
 		model.addAttribute("listMedico", medicos);
 		return "/Vistas/ListaMedicos";
 	}
 	
 	@GetMapping("/RegistrarMedico")
-	public String createMedico(Model model) {
+	public String RegistrarMedico(Model model) {
 		Medico medico = new Medico();
 		model.addAttribute("createMedico", medico);
 		return "/Vistas/FrmRegistrarMedico";
 	}
 	
 	@PostMapping("/GuardarMedico")
-	public String saveMedico(@ModelAttribute Medico medico, Model model) {
+	public String GuardarMedico(@ModelAttribute Medico medico, Model model) {
 		iMedicoServicio.createMedico(medico);
 		System.out.println("InfoMedico registrado en la BD!");
 		return "redirect:/Vistas/ListaMedicos";
 	}
 	
 	@GetMapping("/EditarMedico/{id}")
-	public String updateMedico(@PathVariable("id") Integer idMedico, Model model) {
+	public String EditarMedico(@PathVariable("id") Integer idMedico, Model model) {
 		Medico medico = iMedicoServicio.getMedico(idMedico);
-		model.addAttribute("updateMedico", medico);
+		model.addAttribute("createMedico", medico);
 		return "/Vistas/FrmRegistrarMedico";
 	}
 	
 	@GetMapping("/EliminarMedico/{id}")
-	public String deleteMedico(@PathVariable("id") Integer idMedico, Model model) {
+	public String EliminarMedico(@PathVariable("id") Integer idMedico, Model model) {
 		Medico medico = new Medico();
 		medico.setIdMedico(idMedico);
 		iMedicoServicio.deleteMedico(medico);
